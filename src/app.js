@@ -1,7 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+
 const app = express();
 const dotenv = require('dotenv');
+
 dotenv.config();
 
 const product = require('./app/routes/product');
@@ -16,8 +18,8 @@ app.use('/auth', auth);
 app.use('/product', product);
 app.use('/store', store);
 
-app.listen(process.env.PORT, () => console.log(`Running on port ${process.env.PORT}!`))
+app.listen(process.env.PORT);
 
 module.exports = {
-    app
-}
+  app,
+};
