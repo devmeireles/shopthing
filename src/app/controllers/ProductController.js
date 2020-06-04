@@ -1,4 +1,4 @@
-var ProductService = require('../services/ProductService')
+var ProductService = require('../services/ProductService');
 
 exports.index = async function (req, res, next) {
     var page = req.params.page ? req.params.page : 1;
@@ -9,4 +9,14 @@ exports.index = async function (req, res, next) {
     } catch (e) {
         return res.status(400).json({ status: 400, message: e.message });
     }
+}
+
+exports.faker = async function (req, res, next) {
+    try{
+        const product = await ProductService.getFakeProduct();
+        return res.status(200).json({ status: 200, data: product, message: "Succesfully created" });
+    }catch(e){
+        return res.status(400).json({ status: 400, message: e.message });
+    }
+    
 }

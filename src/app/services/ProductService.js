@@ -1,21 +1,28 @@
-const Product = require('../models/Product')
+const Product = require('../models/Product');
+const UserService = require('./UserService');
+const faker = require('faker');
 
 exports.getProducts = async function (query, page, limit) {
     try {
-        var products = await Product.find(query)
-        return products;
+        return await Product.find(query)
     } catch (e) {
-        // Log Errors
         throw Error('Error while Paginating products')
     }
 }
 
-exports.getTest = async function (query, page, limit) {
+exports.getFakeProduct = async function () {
     try {
-        var products = await Product.find(query)
-        return products;
+        const product = {
+            title: faker.commerce.productName(),
+            description: faker.lorem.text(),
+            price: faker.commerce.price(),
+            department: faker.commerce.department(),
+            featuredImage: faker.image.business(),
+            ownerID: await UserService.getRandomUser(),
+        }
+
+        return await Product.create(product);
     } catch (e) {
-        // Log Errors
-        throw Error('Error while Paginating products')
+        throw Error(e)
     }
 }
