@@ -6,6 +6,6 @@ const StoreController = require('../controllers/StoreController');
 routes.use(authMiddleware);
 
 routes.get('/', StoreController.index);
-routes.get('/test', StoreController.getUserStore);
+routes.get('/user', StoreController.getUserStore);
 
 module.exports = routes;
