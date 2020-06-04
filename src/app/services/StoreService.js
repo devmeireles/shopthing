@@ -11,6 +11,7 @@ exports.getStores = async function () {
 exports.getUserStore = async function (ownerID) {
   try {
     return await Product.find({ ownerID })
+      .sort([['createdAt', -1]])
       .populate('user')
       .exec();
   } catch (e) {
