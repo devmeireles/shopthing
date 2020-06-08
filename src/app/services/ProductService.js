@@ -2,15 +2,18 @@ const faker = require('faker');
 const Product = require('../models/Product');
 const UserService = require('./UserService');
 
-exports.getProducts = async function (query, page, limit) {
+exports.getProducts = async (query, skip, limit) => {
   try {
-    return await Product.find(query);
+    return await Product.find(query)
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
   } catch (e) {
     throw Error('Error while Paginating products');
   }
 };
 
-exports.getFakeProduct = async function () {
+exports.getFakeProduct = async () => {
   try {
     const product = {
       title: faker.commerce.productName(),

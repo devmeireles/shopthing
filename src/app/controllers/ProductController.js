@@ -1,21 +1,43 @@
 const ProductService = require('../services/ProductService');
 
-exports.index = async function (req, res) {
-  const page = req.params.page ? req.params.page : 1;
-  const limit = req.params.limit ? req.params.limit : 10;
+exports.index = async (req, res) => {
+  const page = req.body.page ? parseInt(req.body.page, 10) : 1;
+  const limit = req.body.limit ? parseInt(req.body.limit, 10) : 10;
+  const skip = (page * limit) - limit;
+
   try {
-    const users = await ProductService.getProducts({}, page, limit);
-    return res.status(200).json({ status: 200, data: users, message: 'Succesfully Users Retrieved' });
+    const data = await ProductService.getProducts({}, skip, limit);
+    return res.status(200).json(
+      {
+        success: true,
+        data,
+      },
+    );
   } catch (e) {
-    return res.status(400).json({ status: 400, message: e.message });
+    return res.status(400).json(
+      {
+        success: false,
+        message: e.message,
+      },
+    );
   }
 };
 
-exports.faker = async function (req, res) {
+exports.faker = async (req, res) => {
   try {
-    const product = await ProductService.getFakeProduct();
-    return res.status(200).json({ status: 200, data: product, message: 'Succesfully created' });
+    const data = await ProductService.getFakeProduct();
+    return res.status(200).json(
+      {
+        success: true,
+        data,
+      },
+    );
   } catch (e) {
-    return res.status(400).json({ status: 400, message: e.message });
+    return res.status(400).json(
+      {
+        success: false,
+        message: e.message,
+      },
+    );
   }
 };

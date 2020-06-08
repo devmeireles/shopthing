@@ -1,6 +1,6 @@
 const User = require('../models/User');
 
-exports.getRandomUser = async function () {
+exports.getRandomUser = async () => {
   try {
     const randomUser = await User.aggregate(
       [

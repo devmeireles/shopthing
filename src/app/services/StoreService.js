@@ -1,6 +1,6 @@
 const Product = require('../models/Product');
 
-exports.getStores = async function () {
+exports.getStores = async () => {
   try {
     return await Product.find();
   } catch (e) {
@@ -8,7 +8,7 @@ exports.getStores = async function () {
   }
 };
 
-exports.getUserStore = async function (ownerID) {
+exports.getUserStore = async (ownerID) => {
   try {
     return await Product.find({ ownerID })
       .sort([['createdAt', -1]])

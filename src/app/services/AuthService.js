@@ -4,30 +4,30 @@ exports.checkUserMailExists = async function (email) {
   try {
     return await User.findOne({ email });
   } catch (e) {
-    return res.status(400).json({ status: 400, message: e.message });
+    return e.message;
   }
 };
 
-exports.checkUserNameExists = async function (username) {
+exports.checkUserNameExists = async (username) => {
   try {
     return await User.findOne({ username });
   } catch (e) {
-    return res.status(400).json({ status: 400, message: e.message });
+    return e.message;
   }
 };
 
-exports.checkUserByPassword = async function (email) {
+exports.checkUserByPassword = async (email) => {
   try {
     return await User.findOne({ email }).select('+password');
   } catch (e) {
-    return res.status(400).json({ status: 400, message: e.message });
+    return e.message;
   }
 };
 
-exports.createUser = async function (data) {
+exports.createUser = async (data) => {
   try {
     return await User.create(data);
   } catch (e) {
-    return res.status(400).json({ status: 400, message: e.message });
+    return e.message;
   }
 };
