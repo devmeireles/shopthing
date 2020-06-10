@@ -92,6 +92,10 @@ exports.delete = async (req, res) => {
   try {
     const { productID } = req.params;
 
+    if (!await ProductService.checkPermission(req.user, productID)) {
+      return res.status(400).send({ error: 'User without permission' });
+    }
+
     await ProductService.delete(productID);
     return res.status(200).json(
       {
@@ -112,6 +116,10 @@ exports.update = async (req, res) => {
   try {
     const { data } = await req.body;
     const { productID } = await req.params;
+
+    if (!await ProductService.checkPermission(req.user, productID)) {
+      return res.status(400).send({ error: 'User without permission' });
+    }
 
     const product = await ProductService.update(productID, data);
 
@@ -135,6 +143,10 @@ exports.changeStatus = async (req, res) => {
   try {
     const { data } = await req.body;
     const { productID } = await req.params;
+
+    if (!await ProductService.checkPermission(req.user, productID)) {
+      return res.status(400).send({ error: 'User without permission' });
+    }
 
     const product = await ProductService.update(productID, data);
 

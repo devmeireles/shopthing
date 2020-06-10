@@ -23,7 +23,7 @@ const ProductSchema = new mongoose.Schema({
   slug: {
     type: String,
     slug: 'title',
-    slug_padding_size: 4,
+    slugPaddingSize: 4,
     permanent: false,
   },
   description: {

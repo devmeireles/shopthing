@@ -57,6 +57,11 @@ exports.update = async (productID, data) => {
   }
 };
 
+exports.checkPermission = async (currentUser, productID) => {
+  const data = await this.getByID(productID);
+  if (String(data.ownerID) === String(currentUser)) return true;
+};
+
 exports.getFakeProduct = async () => {
   try {
     const ownerID = await UserService.getRandomUser();
