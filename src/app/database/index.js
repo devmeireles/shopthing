@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const slug = require('mongoose-slug-generator');
+const slug = require('mongoose-slug-updater');
 const dotenv = require('dotenv');
 
 dotenv.config();

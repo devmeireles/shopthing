@@ -23,9 +23,141 @@ exports.index = async (req, res) => {
   }
 };
 
+exports.create = async (req, res) => {
+  try {
+    const { data } = await req.body;
+    data.ownerID = await req.user;
+
+    const product = await ProductService.create(data);
+
+    return res.status(200).json(
+      {
+        success: true,
+        product,
+      },
+    );
+  } catch (e) {
+    return res.status(400).json(
+      {
+        success: false,
+        message: e.message,
+      },
+    );
+  }
+};
+
+exports.getByID = async (req, res) => {
+  try {
+    const { productID } = req.params;
+
+    const data = await ProductService.getByID(productID);
+    return res.status(200).json(
+      {
+        success: true,
+        data,
+      },
+    );
+  } catch (e) {
+    return res.status(400).json(
+      {
+        success: false,
+        message: e.message,
+      },
+    );
+  }
+};
+
+exports.getBySlug = async (req, res) => {
+  try {
+    const { slug } = req.params;
+
+    const data = await ProductService.getBySlug(slug);
+    return res.status(200).json(
+      {
+        success: true,
+        data,
+      },
+    );
+  } catch (e) {
+    return res.status(400).json(
+      {
+        success: false,
+        message: e.message,
+      },
+    );
+  }
+};
+
+exports.delete = async (req, res) => {
+  try {
+    const { productID } = req.params;
+
+    await ProductService.delete(productID);
+    return res.status(200).json(
+      {
+        success: true,
+      },
+    );
+  } catch (e) {
+    return res.status(400).json(
+      {
+        success: false,
+        message: e.message,
+      },
+    );
+  }
+};
+
+exports.update = async (req, res) => {
+  try {
+    const { data } = await req.body;
+    const { productID } = await req.params;
+
+    const product = await ProductService.update(productID, data);
+
+    return res.status(200).json(
+      {
+        success: true,
+        product,
+      },
+    );
+  } catch (e) {
+    return res.status(400).json(
+      {
+        success: false,
+        message: e.message,
+      },
+    );
+  }
+};
+
+exports.changeStatus = async (req, res) => {
+  try {
+    const { data } = await req.body;
+    const { productID } = await req.params;
+
+    const product = await ProductService.update(productID, data);
+
+    return res.status(200).json(
+      {
+        success: true,
+        product,
+      },
+    );
+  } catch (e) {
+    return res.status(400).json(
+      {
+        success: false,
+        message: e.message,
+      },
+    );
+  }
+};
+
 exports.faker = async (req, res) => {
   try {
     const data = await ProductService.getFakeProduct();
+
     return res.status(200).json(
       {
         success: true,

@@ -21,6 +21,7 @@
         "mongoose": "^5.5.12",
         "mongoose-paginate": "^5.0.3",
         "mongoose-slug-generator": "^1.0.4",
+        "mongoose-slug-updater": "^3.2.3",
         "nodemailer": "^6.2.1",
         "nodemailer-express-handlebars": "^3.0.0",
         "path": "^0.12.7",
